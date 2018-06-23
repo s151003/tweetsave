@@ -1,7 +1,5 @@
 import configparser
 from twitter import *
-import json
-import urllib.request
 from tweetsave import api 
 from time import sleep
 
