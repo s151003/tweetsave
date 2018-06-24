@@ -26,7 +26,6 @@ def get_timeline(screen_name,max=None):
         sleep(60*15)
         get_timeline(screen_name,max=None)
 
-        
 def savetweets(tweets,turbo):
     max=""
     l = len(tweets)
@@ -59,5 +58,3 @@ def main():
         max = savetweets(tweets,turbo)
 
 main()
-
-
