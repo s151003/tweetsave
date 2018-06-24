@@ -5,7 +5,7 @@ from time import sleep
 
 def auth():
     ini = configparser.ConfigParser()
-    ini.read('./keys.ini','UTF-8')
+    ini.read('./config.ini','UTF-8')
 
     CK = ini.get('Keys','Consumer_Key')
     CS = ini.get('Keys','Consumer_Secret')
@@ -41,7 +41,7 @@ def savetweets(tweets,turbo):
 
 def main():    
     ini = configparser.ConfigParser()
-    ini.read('./keys.ini','UTF-8')
+    ini.read('./config.ini','UTF-8')
     screen_name = ini.get('save','user')
     turbo=ini.get('save','turbo')
     print("-----------------------")
