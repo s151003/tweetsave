@@ -2,6 +2,7 @@ import configparser
 from twitter import *
 from tweetsave import api 
 from time import sleep
+import archiveis
 
 def auth():
     ini = configparser.ConfigParser()
@@ -27,23 +28,31 @@ def get_timeline(screen_name,max=None):
         get_timeline(screen_name,max=None)
 
 def savetweets(tweets,turbo):
-    max=""
     l = len(tweets)
     for i in range(0,l):
-        response = api.save(str(tweets[i]['id']))
+        id = tweets[i]['id_str']
+        #print(archiveis.capture("https://twitter.com/Capitalnvest/status/"+id))
+    
+        response = api.save(id)
         print(response)
-        print(tweets[i]['id'])
-        if i == l:
-            max=tweets[i]['id']
-        if turbo != False:
-            sleep(0.9)
-    return max
+        if turbo == False:
+            sleep(1)
+    print(id)
+    return id
 
-def main():    
+def main():  
     ini = configparser.ConfigParser()
     ini.read('./config.ini','UTF-8')
     screen_name = ini.get('save','user')
     turbo=ini.get('save','turbo')
+    if turbo == "True":
+        turbo = True
+    else:
+        turbo = False
+    if ini.get('save','max'):
+        max = ini.get('save','max')
+    else:
+        max = None
     print("-----------------------")
     print("ユーザ名:",screen_name)
     if turbo:
@@ -51,9 +60,8 @@ def main():
     else:
         print("ターボモード:オフ")
     print("-----------------------")
-    tweets=get_timeline(screen_name)
-    max = savetweets(tweets,turbo)
-    for i in range(0,10):
+    
+    for i in range(0,40):
         tweets= get_timeline(screen_name,max)
         max = savetweets(tweets,turbo)
 
